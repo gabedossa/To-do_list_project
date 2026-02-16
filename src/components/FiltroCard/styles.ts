@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import { Props } from '.'
+import styled from 'styled-components';
+import { Props } from '.';
 
-type PropsOmit = Omit<Props, 'contaador' | 'legenda'>
+type PropsOmit = Omit<Props, 'contaador' | 'legenda'>;
 
 export const Card = styled.div<PropsOmit>`
   padding: 8px;
@@ -9,14 +9,14 @@ export const Card = styled.div<PropsOmit>`
   border: 1px solid ${(props) => (props.ativo ? '#1e90ff' : '#a1a1a1')};
   background-color: ${(props) => (props.ativo ? '#fff' : '#fcfcfc')};
   border-radius: 8px;
-`
+`;
 
 export const Contador = styled.span`
   font-weight: bold;
   font-size: 24px;
   display: block;
-`
+`;
 
 export const Label = styled.span`
   font-size: 14px;
-`
+`;

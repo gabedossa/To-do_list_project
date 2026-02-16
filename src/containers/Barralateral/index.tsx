@@ -1,5 +1,5 @@
-import FiltroCard from '../../components/FiltroCard'
-import * as S from './styles'
+import FiltroCard from '../../components/FiltroCard';
+import * as S from './styles';
 
 const BarraLateral = () => {
   return (
@@ -16,7 +16,7 @@ const BarraLateral = () => {
         </S.Filtros>
       </div>
     </S.Aside>
-  )
-}
+  );
+};
 
-export default BarraLateral
+export default BarraLateral;
