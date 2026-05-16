@@ -60,11 +60,9 @@ const Tarefa = ({ id, titulo, prioridade, status, descricao }: Props) => {
             value={prioridadeEdit}
             onChange={(e) => setPrioridadeEdit(e.target.value as Prioridade)}
           >
-            <option value={Prioridade.URGENTE}>{Prioridade.URGENTE}</option>
-            <option value={Prioridade.IMPORTANTE}>
-              {Prioridade.IMPORTANTE}
-            </option>
-            <option value={Prioridade.NORMAL}>{Prioridade.NORMAL}</option>
+            <option value={Prioridade.URGENTE}>🔴 {Prioridade.URGENTE}</option>
+            <option value={Prioridade.MEDIO}>🟡 {Prioridade.MEDIO}</option>
+            <option value={Prioridade.BAIXA}>🟢 {Prioridade.BAIXA}</option>
           </S.SelectEdicao>
           <S.SelectEdicao
             value={statusEdit}

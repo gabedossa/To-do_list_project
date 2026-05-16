@@ -1,11 +1,18 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FiltroCard from '../../components/FiltroCard';
 import { RootReducer } from '../../store';
+import {
+  alterarTermoBusca,
+  alterarFiltroStatus,
+  alterarFiltroPrioridade,
+  limparFiltros,
+} from '../../store/reducers/filtros';
 import * as S from './styles';
 import * as enums from '../../utils/enum/Tarefas';
 
 const BarraLateral = () => {
-  const { tarefas } = useSelector((state: RootReducer) => state);
+  const dispatch = useDispatch();
+  const { tarefas, filtros } = useSelector((state: RootReducer) => state);
 
   const contagens = {
     pendentes: tarefas.filter((t) => t.status === enums.Status.PENDENTE).length,
@@ -13,119 +20,80 @@ const BarraLateral = () => {
       .length,
     urgentes: tarefas.filter((t) => t.prioridade === enums.Prioridade.URGENTE)
       .length,
-    importantes: tarefas.filter(
-      (t) => t.prioridade === enums.Prioridade.IMPORTANTE
-    ).length,
-    normal: tarefas.filter((t) => t.prioridade === enums.Prioridade.NORMAL)
+    medio: tarefas.filter((t) => t.prioridade === enums.Prioridade.MEDIO)
+      .length,
+    baixa: tarefas.filter((t) => t.prioridade === enums.Prioridade.BAIXA)
       .length,
     todas: tarefas.length,
   };
 
-  // Definindo os tipos explicitamente
-  type TipoFiltro = 'status' | 'prioridade' | 'todas';
-
-  const filtrosStatus: Array<{
-    legenda: string;
-    contador: number;
-    tipo: TipoFiltro;
-    valor: enums.Status | null;
-  }> = [
-    {
-      legenda: 'Pendentes',
-      contador: contagens.pendentes,
-      tipo: 'status',
-      valor: enums.Status.PENDENTE,
-    },
-    {
-      legenda: 'Concluídas',
-      contador: contagens.concluidas,
-      tipo: 'status',
-      valor: enums.Status.CONCLUIDA,
-    },
-  ];
-
-  const filtrosPrioridade: Array<{
-    legenda: string;
-    contador: number;
-    tipo: TipoFiltro;
-    valor: enums.Prioridade | null;
-  }> = [
-    {
-      legenda: 'Urgentes',
-      contador: contagens.urgentes,
-      tipo: 'prioridade',
-      valor: enums.Prioridade.URGENTE,
-    },
-    {
-      legenda: 'Importantes',
-      contador: contagens.importantes,
-      tipo: 'prioridade',
-      valor: enums.Prioridade.IMPORTANTE,
-    },
-    {
-      legenda: 'Normal',
-      contador: contagens.normal,
-      tipo: 'prioridade',
-      valor: enums.Prioridade.NORMAL,
-    },
-  ];
-
-  const filtrosGerais: Array<{
-    legenda: string;
-    contador: number;
-    tipo: TipoFiltro;
-    valor: null;
-  }> = [
-    {
-      legenda: 'Todas',
-      contador: contagens.todas,
-      tipo: 'todas',
-      valor: null,
-    },
-  ];
+  const todasAtivo =
+    filtros.filtroStatus === null && filtros.filtroPrioridade === null;
 
   return (
     <S.Aside>
       <div>
-        <S.Campo type="text" placeholder="🔍 Buscar tarefas..." />
+        <S.Campo
+          type="text"
+          placeholder="🔍 Buscar tarefas..."
+          value={filtros.termoBusca}
+          onChange={(e) => dispatch(alterarTermoBusca(e.target.value))}
+        />
 
         <S.TituloSecao>Status</S.TituloSecao>
         <S.Filtros>
-          {filtrosStatus.map((filtro) => (
-            <FiltroCard
-              key={filtro.legenda}
-              legenda={filtro.legenda}
-              contador={filtro.contador}
-              tipo={filtro.tipo}
-              valor={filtro.valor}
-            />
-          ))}
+          <FiltroCard
+            legenda="Pendentes"
+            contador={contagens.pendentes}
+            ativo={filtros.filtroStatus === enums.Status.PENDENTE}
+            onClick={() => dispatch(alterarFiltroStatus(enums.Status.PENDENTE))}
+          />
+          <FiltroCard
+            legenda="Concluídas"
+            contador={contagens.concluidas}
+            ativo={filtros.filtroStatus === enums.Status.CONCLUIDA}
+            onClick={() =>
+              dispatch(alterarFiltroStatus(enums.Status.CONCLUIDA))
+            }
+          />
         </S.Filtros>
 
         <S.TituloSecao>Prioridade</S.TituloSecao>
         <S.Filtros>
-          {filtrosPrioridade.map((filtro) => (
-            <FiltroCard
-              key={filtro.legenda}
-              legenda={filtro.legenda}
-              contador={filtro.contador}
-              tipo={filtro.tipo}
-              valor={filtro.valor}
-            />
-          ))}
+          <FiltroCard
+            legenda="Urgentes"
+            contador={contagens.urgentes}
+            ativo={filtros.filtroPrioridade === enums.Prioridade.URGENTE}
+            onClick={() =>
+              dispatch(alterarFiltroPrioridade(enums.Prioridade.URGENTE))
+            }
+          />
+          <FiltroCard
+            legenda="Médio"
+            contador={contagens.medio}
+            ativo={filtros.filtroPrioridade === enums.Prioridade.MEDIO}
+            onClick={() =>
+              dispatch(alterarFiltroPrioridade(enums.Prioridade.MEDIO))
+            }
+          />
+          <FiltroCard
+            legenda="Baixa"
+            contador={contagens.baixa}
+            ativo={filtros.filtroPrioridade === enums.Prioridade.BAIXA}
+            onClick={() =>
+              dispatch(alterarFiltroPrioridade(enums.Prioridade.BAIXA))
+            }
+          />
         </S.Filtros>
 
         <S.TituloSecao>Geral</S.TituloSecao>
         <S.Filtros>
-          {filtrosGerais.map((filtro) => (
-            <FiltroCard
-              key={filtro.legenda}
-              legenda={filtro.legenda}
-              contador={filtro.contador}
-              tipo={filtro.tipo}
-              valor={filtro.valor}
-            />
-          ))}
+          <FiltroCard
+            legenda="Todas"
+            contador={contagens.todas}
+            ativo={todasAtivo}
+            onClick={() => dispatch(limparFiltros())}
+          />
         </S.Filtros>
 
         <S.ContadorTotal>

@@ -18,10 +18,10 @@ function retornaCorFundo(props: tagProps) {
   } else if (props.parametro === 'prioridade') {
     if (props.prioridade === Prioridade.URGENTE) {
       return Variaveis.vermelho;
-    } else if (props.prioridade === Prioridade.IMPORTANTE) {
+    } else if (props.prioridade === Prioridade.MEDIO) {
       return Variaveis.amarelo;
-    } else if (props.prioridade === Prioridade.NORMAL) {
-      return `#CCCCCC`;
+    } else if (props.prioridade === Prioridade.BAIXA) {
+      return Variaveis.verde;
     }
   }
   return `#CCCCCC`;

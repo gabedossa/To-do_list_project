@@ -7,17 +7,12 @@ type Props = {
   tipo?: 'status' | 'prioridade' | 'todas';
   valor?: enums.Status | enums.Prioridade | null;
   ativo?: boolean;
+  onClick?: () => void;
 };
 
-const FiltroCard = ({
-  legenda,
-  contador,
-  tipo,
-  valor,
-  ativo = false,
-}: Props) => {
+const FiltroCard = ({ legenda, contador, ativo = false, onClick }: Props) => {
   return (
-    <S.Card ativo={ativo}>
+    <S.Card ativo={ativo} onClick={onClick}>
       <S.Legenda>{legenda}</S.Legenda>
       <S.Contador>{contador}</S.Contador>
     </S.Card>

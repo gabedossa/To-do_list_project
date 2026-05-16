@@ -5,13 +5,28 @@ import { RootReducer } from '../../store';
 import { InputText } from '../../components/InputText';
 
 const ListaDeTarefas = () => {
-  const { tarefas } = useSelector((state: RootReducer) => state);
+  const { tarefas, filtros } = useSelector((state: RootReducer) => state);
+
+  const tarefasFiltradas = tarefas
+    .filter((t) =>
+      filtros.termoBusca
+        ? t.titulo.toLowerCase().includes(filtros.termoBusca.toLowerCase())
+        : true
+    )
+    .filter((t) =>
+      filtros.filtroStatus ? t.status === filtros.filtroStatus : true
+    )
+    .filter((t) =>
+      filtros.filtroPrioridade
+        ? t.prioridade === filtros.filtroPrioridade
+        : true
+    );
 
   return (
     <Container>
       <InputText />
       <ul>
-        {tarefas.map((tarefa) => (
+        {tarefasFiltradas.map((tarefa) => (
           <li key={tarefa.id}>
             <Tarefa
               id={tarefa.id}
