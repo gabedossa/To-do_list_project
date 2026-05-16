@@ -11,9 +11,10 @@ class TarefaInicial {
     titulo: string,
     prioridade: enums.Prioridade,
     status: enums.Status,
-    descricao: string
+    descricao: string,
+    id = 0
   ) {
-    this.id = 0;
+    this.id = id;
     this.titulo = titulo;
     this.prioridade = prioridade;
     this.status = status;

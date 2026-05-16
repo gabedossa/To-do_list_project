@@ -9,24 +9,48 @@ const tarefasSlice = createSlice({
       'Comprar leite',
       enums.Prioridade.URGENTE,
       enums.Status.PENDENTE,
-      'Comprar leite no supermercado'
+      'Comprar leite no supermercado',
+      1
     ),
     new TarefaInicial(
       'Estudar React',
       enums.Prioridade.MEDIO,
       enums.Status.PENDENTE,
-      'Estudar os conceitos básicos de React'
+      'Estudar os conceitos básicos de React',
+      2
     ),
     new TarefaInicial(
       'Limpar a casa',
       enums.Prioridade.BAIXA,
       enums.Status.PENDENTE,
-      'Limpar a sala, cozinha e banheiro'
+      'Limpar a sala, cozinha e banheiro',
+      3
     ),
   ],
   reducers: {
     remover: (state, action: PayloadAction<number>) => {
       return state.filter((tarefa) => tarefa.id !== action.payload);
+    },
+    editar: (
+      state,
+      action: PayloadAction<{
+        id: number;
+        titulo: string;
+        descricao: string;
+        prioridade: enums.Prioridade;
+        status: enums.Status;
+      }>
+    ) => {
+      return state.map((tarefa) => {
+        if (tarefa.id !== action.payload.id) return tarefa;
+        return {
+          ...tarefa,
+          titulo: action.payload.titulo,
+          descricao: action.payload.descricao,
+          prioridade: action.payload.prioridade,
+          status: action.payload.status,
+        };
+      });
     },
     adicionar: (
       state,
@@ -55,15 +79,14 @@ const tarefasSlice = createSlice({
         titulo,
         prioridade,
         status,
-        descricao
+        descricao,
+        ultimoId + 1
       );
-
-      Object.assign(novaTarefa, { id: ultimoId + 1 });
 
       state.push(novaTarefa);
     },
   },
 });
 
-export const { remover, adicionar } = tarefasSlice.actions;
+export const { remover, adicionar, editar } = tarefasSlice.actions;
 export default tarefasSlice.reducer;

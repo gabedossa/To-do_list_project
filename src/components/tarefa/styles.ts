@@ -28,12 +28,16 @@ function retornaCorFundo(props: tagProps) {
 }
 
 export const Cards = styled.div`
-    background-color: #FCFCFC;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding 16px;
-    border-radius: 16px;
-    margin-bottom: 32px;
-    padding: 16px;
+  background-color: #fcfcfc;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 32px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+    border-radius: 12px;
+  }
 `;
 
 export const Titulo = styled.h3`
@@ -68,9 +72,47 @@ export const Descricao = styled.textarea`
   background-color: transparent;
 `;
 
+export const InputTitulo = styled.input`
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 12px;
+
+  &:focus {
+    outline: none;
+    border-color: #c75000;
+  }
+`;
+
+export const SelectEdicao = styled.select`
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 12px;
+  margin-bottom: 8px;
+
+  &:focus {
+    outline: none;
+    border-color: #c75000;
+  }
+`;
+
 export const BarraAcoes = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.3);
   padding: 8px 0 16px 8px;
+
+  @media (max-width: 480px) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 0 8px 0;
+  }
 `;
 
 export const Botao = styled.button`
@@ -83,6 +125,12 @@ export const Botao = styled.button`
   background-color: #2f3640;
   border-radius: 8px;
   margin-right: 8px;
+
+  @media (max-width: 480px) {
+    margin-right: 0;
+    flex: 1;
+    padding: 10px 8px;
+  }
 `;
 export const BotaoSalvar = styled(Botao)`
   background-color: ${Variaveis.verde};

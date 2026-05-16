@@ -24,12 +24,24 @@ export const Card = styled.div<CardProps>`
     transform: translateY(-2px);
     border-color: #c75000;
   }
+
+  @media (max-width: 768px) {
+    padding: 8px 6px;
+    border-radius: 8px;
+  }
 `;
 
 export const Legenda = styled.span`
   font-weight: 500;
   color: #fff;
   font-size: 14px;
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 export const Contador = styled.span`
@@ -41,4 +53,10 @@ export const Contador = styled.span`
   font-weight: bold;
   min-width: 24px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+    padding: 2px 5px;
+    min-width: 18px;
+  }
 `;

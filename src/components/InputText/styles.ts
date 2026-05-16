@@ -3,10 +3,18 @@ import styled from 'styled-components';
 export const ContainerInput = styled.main`
   padding: 0 40px;
   margin-top: 40px;
-  /* height: 250px;  ← REMOVA esta linha */
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (max-width: 1024px) {
+    padding: 0 24px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 16px;
+    margin-top: 24px;
+  }
 `;
 
 export const InputCard = styled.div`
